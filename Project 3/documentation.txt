@@ -1,0 +1,32 @@
+Matthew Strayhorn
+CS 1501
+carTracker.java
+
+Since the project specified that the double priority queue data structure had to be based on two of the attributes of 
+the entered cars, I made indexable priority queues using the code from the author for price and another for mileage since 
+part of the project involves retrieval of the car with the minimum price and minimum mileage.
+
+I used a 2d array in my car class as the indexable data structure since I needed to keep track of each car and the other
+4 attributes of each car not including price and mileage. While there is a greater space complexity of O(m*n) with this approach, when
+I do operations such as updating the color, I only need to search through the first dimension of the array meaning O(n) runtime
+while no search is needed through the second dimension since I can just select the index of color meaning O(1) access.
+In the car class I also have a index variable that links the car in the 2d array to its mileage and price that are stored in
+the two priority queues. This allows me to update price and mileage in the priority queues and still correspond to the correct car.
+I believe this approach allows me to best keep track of the car and the car attributes for efficient lookup and updating.
+
+For the delete operation I again take advantage of the 2d array by doing a linear search through the 1st dimension and then
+constant time access of the VIN attribute in the 2nd dimension array to compare the VINs. If there is a match then I delete
+the index of the car in the first dimension of the 2d array which also deletes all of its attributes stored in the 2nd dimension
+array by shifting all indices greater than it down by 1 and realigning the indices of cars in the array to their mileage and prices
+attributes stored in the priority queues. I also had to delete the prices and mileages of those car in the priority queues
+which had logarithmic runtime to do so.
+
+Finding the minimum priced car or lowest mileage car is a simple operation that the authors code had a method for returning the
+index of the minimum which has a O(1) time complexity and I could use that as the index of the 2d array for the car so I
+believe that to be the best way to handle those operations.
+
+My approach to finding the minimum price car or lowest mileage car by make and model involved creating two new arrays
+where the first one was to keep track of the prices/mileage of cars of the same make and model and the other was to keep
+track o the indicies that each car had in the 2d carArray. While this is again more memory overhead and O(n) time complexity
+to search through each array, this approach allowed me to efficiently keep track of the indicies and the cars and access
+the 2d array attributes in constant time since I kept track of the indices of the cars. 
